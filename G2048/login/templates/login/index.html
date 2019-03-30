@@ -1,0 +1,63 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <link rel="stylesheet" type="text/css" href="{% static 'login/css/main.css' %}">
+        <link href="https://fonts.googleapis.com/css?family=Baloo+Chettan" rel="stylesheet"> 
+        <title>2048</title>
+    </head>
+    <body>
+        <header>
+            <h1>2048</h1>
+        </header>
+
+        <div class="flipper"><div class="flip">
+            
+            <div class = "signinbox">
+                <p>Login</p>
+                {%for message in messages%}
+                    <p style="font-size: 2vmin; color: red">{{message}}</p>
+                {%endfor%}
+                <form method = "POST" action="{%url 'signin' %}">
+                    {%csrf_token%}
+                    Username
+                    <input type="text" name="username" id = "username" style = "">
+                    <br>
+                    Password  <input type="password" name="password">
+                    <input type="hidden" name="form_id" value="0">
+                    <br>
+                    <input type = "submit" value = "Submit">
+                </form>
+                <button style = "background: inherit; font-size: 2vmin; border:none; " id="0">Not yet a Member? Click here to sign in..</button>
+                <br>
+            </div>
+
+            <div class = "signupbox" >
+                <p>Signup</p>
+                <p style="font-size: 2vmin; color: red" id="error"></p>
+                <form method = "POST" action="{%url 'signup' %}" onsubmit="return validate();">
+                    {%csrf_token%}
+                    Username &nbsp;<span id="message" style="font-size: 2vmin" stat = '0'></span>
+                    <input type="text" name="username" id = "user">
+                    <br>
+                    Password  <input type="password" name="password" id = 'pass'>
+                    <input type="hidden" name="form_id" value="1">
+                    <br>
+                    <input type = "submit" value = "Create Account">
+                </form>
+                <button style = "background: inherit; font-size: 2vmin; border:none; " id="1">Already a Member? Click here</button>
+                <br>
+            </div>
+
+        </div></div>
+
+        <script src="{% static 'login/js/main.js'%}"></script>
+
+    </body>
+</html>

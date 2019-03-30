@@ -1,0 +1,72 @@
+html{height:100%}
+
+body{
+    background-image: url("/static/login/images/background.png") ;
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat ;
+    background-size: cover ;
+}
+
+header{
+    position: absolute;
+    width : 99%;
+    text-align: center;
+    top : 0;
+    left:0.5%;
+    background-color: black;
+    color: gold;
+    border-color: black;
+    border-radius: 5%;
+}
+
+header h1{
+    font-size: 9vmin;
+    font-family: 'Baloo Chettan', cursive;
+}
+
+.flip{
+    color:gold;
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    font-family: 'Baloo Chettan', cursive;
+    transition: transform 1.5s;
+    font-size: 3.5vmin;
+    transform-style: preserve-3d;
+}
+
+.flip p{
+    font-size: 6.75vmin
+}
+
+.flip input{
+    border:none;
+    background: inherit;
+    border-bottom: 2px solid gold;
+    color: lightslategray;  
+}
+
+.signinbox, 
+.signupbox{
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    background: rgba(0,0,0);
+    border-radius: 5%;
+    padding: 4vh 5vw 4vh 5vh;
+    text-align: center;
+    text-transform: uppercase;
+    backface-visibility: hidden;
+
+}
+
+.signupbox{
+    transform: translate(-50%,-50%) rotateY(180deg);
+}
+
+.rotate{
+    transform: rotateY(180deg);
+}

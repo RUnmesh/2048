@@ -1,0 +1,64 @@
+html{height:100%}
+
+body{
+    background-image: url("/static/login/images/background.png") ;
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat ;
+    background-size: cover ;
+}
+
+.sidebar{
+    background-color: black;
+    color: gold;
+    height: 100%;
+    font-family: 'Baloo Chettan', cursive;
+    font-size: 2vmin;
+}
+
+.hide{
+    display: none;
+}
+
+.box{
+    display: grid;
+    grid-gap: 10px; 
+    align-items: center;
+    background-color: #666666 ; 
+    height: 85% ; 
+    position:relative; 
+    top: 7.5%;
+    border-radius: 2%;
+    box-shadow: 2px 2px 50px 1px brown;
+    border:5px solid black  ;
+    padding: 10px;
+}
+
+.cover{
+    height: 85% ; 
+    position: absolute;
+    top: 7.5%;
+    left: 0.15%;
+    background-color: gray;
+    opacity: 0.8;
+    filter: blur(30px);
+    display: none;
+}
+
+.txt{
+    height: 85% ; 
+    position: absolute;
+    top: 30%;
+    left: 1.5%;
+    background: transparent;
+    font-size: 20vmin;
+    display: none;
+}
+
+.grid{
+    background-color:#C0C0C0  ;
+    font : bold;
+    display: inline-block;
+    border-radius: 5%;
+    text-align: center;
+}
