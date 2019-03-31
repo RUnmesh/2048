@@ -1,8 +1,44 @@
+$('#name').hover(function(){
+    $('#name').css({'text-decoration' : 'underline'});
+}, function(){
+    $("#name").css({'text-decoration' : 'none'});
+})
+$('#name').on("click" , function(){
+    $('#stats').toggleClass('hide');
+})
+
+//---------------------------------------------------------------//
+
+var manager;
+
 document.addEventListener("DOMContentLoaded", function () {
-    window.requestAnimationFrame(function () {
-      var manager = new Game(4);
-    });
+    manager = new Game(4);
+    $("#refreshbtn").on("click" , refresh);
   });
+
+function refresh()
+{
+    manager.unbindarrow();
+    score = manager.score;
+
+    $.ajax({
+        url : '/game/updatescore' ,
+        type : 'POST' ,
+        data : {
+            score : score
+        } , 
+        success : function(data){
+            $("#bestscore").html(`Best Score : ${data.score}`);
+            $("#noofgames").html(`No. of Games : ${data.games}`);
+        }
+    });
+
+
+    size = Number($("input[name = 'size']:checked").val());
+    manager = new Game(size);
+}
+
+//--------------------------------------------------------------//
 
 //The main game manager;
 function Game(size)
@@ -39,6 +75,7 @@ function Game(size)
 
 //Prepares the game board
 Game.prototype.prepareBoard = function(){
+    this.box.html("");
     this.box.css({  "grid-template-columns": `repeat(${this.size}, auto)` , "grid-template-rows": `repeat(${this.size}, auto)`});
     for(let i=0; i<this.size*this.size;i++)
     {
@@ -57,8 +94,13 @@ Game.prototype.setup = function(){
     this.addStartTiles();
     this.updateBoard();
 
-    document.addEventListener("keydown" , this.keyPress.bind(this));
+    $(window).on("keydown" , this.keyPress.bind(this));
 };
+
+//Removes listener binding to arrow keys
+Game.prototype.unbindarrow = function(){
+    $(window).off("keydown");
+}
 
 // Set up the initial tiles to start the game with
 Game.prototype.addStartTiles = function () {
@@ -82,18 +124,17 @@ Game.prototype.addStartTiles = function () {
   Game.prototype.updateBoard= function () {
     var self = this;
 
-    window.requestAnimationFrame(function(){
-        self.clearBoard();
-        self.grid.cells.forEach(function(col){
-            col.forEach(function(cell){
-                if(cell)
-                    self.addTile(cell);
-            });
-        });
+    self.clearBoard();
 
-        self.updateScore();
-    }
-    )
+    self.grid.cells.forEach(function(col){
+        col.forEach(function(cell){
+            if(cell)
+                self.addTile(cell);
+        });
+    });
+
+    self.updateScore();
+
 };
 
 //Clears the board
@@ -101,15 +142,15 @@ Game.prototype.clearBoard = function(){
     for(var i = 0 ; i<this.size*this.size ; i++)
         {
             $(`#${i}`).html("&nbsp;");
-            document.getElementById(`${i}`).style.backgroundColor = this.colormap[0];
+            $(`#${i}`).css("background-color" , this.colormap[0]);
         }
 };
 
 //Add Tile to Board
 Game.prototype.addTile = function(tile){
     position = tile.x*this.size + tile.y;
-    document.getElementById(`${position}`).innerHTML = `${tile.value}`;
-    document.getElementById(`${position}`).style.backgroundColor = this.colormap[Math.min(2048,tile.value)];
+    $(`#${position}`).html(`${tile.value}`);
+    $(`#${position}`).css("background-color" , this.colormap[Math.min(2048,tile.value)]);
 }
 
 //Updates the score board 

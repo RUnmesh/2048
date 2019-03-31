@@ -22,7 +22,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('' , include('login.urls')) ,
-    path('game' , include('game.urls')) ,
+    path('game/' , include('game.urls')) ,
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

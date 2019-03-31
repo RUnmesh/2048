@@ -18,19 +18,23 @@
             <div class = "col-sm-3 sidebar">
                 <h1 style="font-size: 7vmin" id='name'>{{member.user.username}}</h1>
                 <ul id="stats" style="list-style: none;" class="hide">
-                    <li>Best Time : {{time}}</li>
-                    <li>No. of Games : {{member.games}}</li>
+                    <li id="bestscore">Best Score : {{member.best_score}}</li>
+                    <li id="noofgames">No. of Games : {{member.games}}</li>
                 </ul>
                 <hr>
-                <p style = 'font-size: 3vmin'>Current Game</p>
+                <p style = 'font-size: 3vmin;'>Current Game</p>
                 <div id="info">
                     <p>No Game in Progress</p>
                 </div>
                 <hr>
-                <div id="newgame">
+                <div id="newgame" style="padding-left:1vmin">
                     <p style = 'font-size: 3vmin'>Start New Game</p>
-                    <p>Press New Game to refresh board</p>
-                    &nbsp;  <button style="background-color: inherit; border-color: goldenrod">New Game</button>
+                    <p>Select size of board and press New Game to refresh board</p>
+                    <label class="radio-inline"><input type="radio" name="size" value="3">3 X 3</label>
+                    <label class="radio-inline"><input type="radio" name="size" value="4" checked>4 X 4</label>
+                    <label class="radio-inline"><input type="radio" name="size" value="6">6 X 6</label> 
+                    <label class="radio-inline"><input type="radio" name="size" value="8">8 X 8</label> <br>
+                    <button style="background-color: inherit; border-color: goldenrod" id="refreshbtn">New Game</button>
                 </div>
                 <hr>
                 <p style = 'font-size: 3vmin'>How to Play</p>
