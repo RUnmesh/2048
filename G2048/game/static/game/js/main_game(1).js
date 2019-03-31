@@ -89,7 +89,6 @@ Game.prototype.setup = function(){
     this.grid = new Grid(this.size);
     this.score = 0;
     this.over = false;
-    this.won = false;
 
     this.addStartTiles();
     this.updateBoard();
@@ -234,6 +233,8 @@ Game.prototype.move = function (direction) {
         this.updateBoard();
         this.addRandomTile();
         setTimeout(this.updateBoard.bind(this) , 100);
+        if(!(this.grid.checkAvailable()||this.matchesAvailable()))
+            this.gameOver();
     }
 
   };
@@ -242,6 +243,7 @@ Game.prototype.move = function (direction) {
 Game.prototype.gameOver = function()
 {
     this.over = true;
+    $(window).off("keydown");
     $(".cover").css("display" , "block");
     $(".txt").css("display" , "block");
 }
@@ -291,6 +293,23 @@ Game.prototype.buildTraversals = function (vector) {
   
     return traversals;
   };
+
+//Checks if moves are possible
+Game.prototype.matchesAvailable = function () {
+  var tile;
+
+  for (var x = 1; x < this.size-1; x++) 
+  {
+    for (var y = 1; y < this.size-1; y++) 
+    {
+      tile = this.grid.cells[x][y].value;
+      var c=0;
+      for(var i = -1 ; i<=1 ; i++) for(var j = -1; j<=1 ; j++) if(this.grid.cells[x+i][y+j].value == tile) c++;
+      if(c>1) {return true;}
+    }
+  }    
+  return false;
+};
 
 //-------------------------------------------------------------------------//
 
