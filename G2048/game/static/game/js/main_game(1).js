@@ -296,19 +296,31 @@ Game.prototype.buildTraversals = function (vector) {
 
 //Checks if moves are possible
 Game.prototype.matchesAvailable = function () {
-  var tile;
-
-  for (var x = 1; x < this.size-1; x++) 
-  {
-    for (var y = 1; y < this.size-1; y++) 
+    var tile;
+    for (var x = 0; x < this.size; x++) 
     {
-      tile = this.grid.cells[x][y].value;
-      var c=0;
-      for(var i = -1 ; i<=1 ; i++) for(var j = -1; j<=1 ; j++) if(this.grid.cells[x+i][y+j].value == tile) c++;
-      if(c>1) {return true;}
-    }
-  }    
-  return false;
+        for (var y = 0; y < this.size; y++) 
+        {
+            tile = this.grid.cells[x][y].value;
+            var c=0;
+            for(var i = -1 ; i<=1 ; i++) 
+            {
+                for(var j = -1; j<=1 ; j++)
+                {
+                    if((i==0)||(j==0))
+                    {   
+                        if ((x+i>=0)&&(x+i<this.size)&&(y+j>=0)&&(y+j<this.size))
+                        {
+                            if(this.grid.cells[x+i][y+j].value == tile)
+                                c++;
+                        }
+                    }
+                }
+            }
+            if(c>1) {return true;}
+        }   
+    }    
+    return false;
 };
 
 //-------------------------------------------------------------------------//
